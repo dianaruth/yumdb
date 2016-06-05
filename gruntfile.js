@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         },
         wiredep: {
             task: {
-                src: 'builds/development/**/*.html'
+                src: 'builds/development/*.html'
             }
         },
         sass : {

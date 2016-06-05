@@ -5,8 +5,9 @@
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
     <link rel="stylesheet" href="css/_bower.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <base href="/">
 </head>
-<body>
+<body ng-app="yumdb">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -23,16 +24,26 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse-data">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Search Recipes</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/recipes">Search Recipes</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <section class="home">
-
-    </section>
+    <div class="partial" ng-view>
+        <!-- content -->
+    </div>
+    <footer id="footer">
+        <div class="center">
+            <p>
+                &copy; 2016 Diana Ruth
+            </p>
+            <p>
+                This website uses the <a href="https://developer.yummly.com/" target="_blank">Yummly API</a>
+            </p>
+        </div>
+    </footer>
     <script type="text/javascript" src="js/_bower.js"></script>
-    <script type="text/javascript" src="js/script.js">
+    <script type="text/javascript" src="js/script.js"></script>
 </body>
+</html>

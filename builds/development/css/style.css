@@ -1,11 +1,94 @@
-.home {
-  background: linear-gradient(transparent, rgba(255, 255, 255, 0.7)), url("../images/background.jpg");
+body {
+  background-color: #ea5959;
+}
+
+#main {
+  background: linear-gradient(transparent, white), url("../images/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  position: relative;
+}
+
+#main:after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: inherit;
+  z-index: -1;
+  bottom: 0;
+  transform-origin: right bottom;
+  transform: skewY(-5deg);
+}
+
+#about {
   height: 1000px;
 }
 
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h6 {
+  font-size: 15px;
+  font-family: ff-dagny-web-pro, Helvetica, sans-serif;
+  text-align: center;
+  font-weight: 900;
+}
+
+.info-ball img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  margin-left: 20px;
+  margin-right: 20px;
+  transition: all .3s;
+  text-align: center;
+}
+
+#main, .flex {
+  height: 700px;
+}
+
+.info-ball img:hover {
+  margin-bottom: 40px;
+  opacity: 0.7;
+  transition: all .3s;
+}
+
+.info-ball p {
+  color: black;
+  text-align: center;
+}
+
+.info-ball-header {
+  text-align: center;
+  font-family: acumin-pro-condensed, Helvetica, sans-serif;
+  font-weight: 900;
+  margin-top: 0px;
+  font-size: 40px;
+}
+
+/* Media Queries */
+@media (max-width: 850px) {
+  .flex {
+    flex-direction: column;
+  }
+
+  .info-ball {
+    width: 250px;
+    height: 250px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  #main, .flex {
+    height: 1600px;
+  }
+}
 #nav-brand-img {
   height: 120px;
   margin-left: 20px;
@@ -13,6 +96,10 @@
 
 #nav-brand-text {
   display: none;
+}
+
+a {
+  cursor: pointer;
 }
 
 .navbar {
@@ -72,7 +159,27 @@ nav.navbar.shrink #nav-brand-img {
   transition: all 0.8s ease;
 }
 
-/* Navigation */
+.partial {
+  padding-top: 130px;
+}
+
+#footer {
+  height: 60px;
+  background-color: #ffe084;
+  text-align: center;
+  font-family: ff-dagny-web-pro, Helvetica, sans-serif;
+  font-weight: 900;
+  padding-top: 10px;
+}
+#footer p {
+  margin: 0px;
+}
+#footer a {
+  color: #f98b60;
+  text-decoration: none;
+}
+
+/* Media Queries */
 @media (max-width: 1005px) {
   .navbar-default .navbar-nav a {
     font-family: paralucent-condensed, Helvetica, sans-serif;
@@ -80,15 +187,6 @@ nav.navbar.shrink #nav-brand-img {
     font-size: 45px;
     padding-top: 55px;
     padding-right: 40px;
-  }
-}
-@media (max-width: 945px) {
-  .navbar-default .navbar-nav a {
-    font-family: paralucent-condensed, Helvetica, sans-serif;
-    font-weight: 900;
-    font-size: 33px;
-    padding-top: 55px;
-    padding-right: 30px;
   }
 }
 @media (max-width: 787px) {
@@ -129,6 +227,10 @@ nav.navbar.shrink #nav-brand-img {
     font-family: paralucent-condensed, Helvetica, sans-serif;
     font-weight: 900;
     font-size: 40px;
+  }
+
+  .partial {
+    padding-top: 50px;
   }
 }
 
