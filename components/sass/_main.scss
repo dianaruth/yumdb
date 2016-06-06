@@ -17,10 +17,6 @@
     transform: skewY(-5deg);
 }
 
-#about {
-    height: 1000px;
-}
-
 .flex {
     display: flex;
     align-items: center;
@@ -67,6 +63,13 @@ h6 {
     font-size: 40px;
 }
 
+#about-header {
+    font-family: $third-block-header;
+    text-align: center;
+    margin-top: 120px;
+    font-size: 60px;
+}
+
 /* Media Queries */
 
 @media (max-width: 850px) {
@@ -79,7 +82,20 @@ h6 {
         margin-top: 20px;
         margin-bottom: 20px;
     }
+    .info-ball img:hover {
+        opacity: 1;
+    }
     #main, .flex {
         height: 1600px;
     }
+}
+
+@media (max-width: 600px) {
+    #chef {
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {    /* right before columns break */
+
 }
