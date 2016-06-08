@@ -24,21 +24,21 @@ a {
     background-color: $secondary-color;
     .navbar-nav {
         li {
-            a:hover {
-                color: $nav-active-link-color;
-            }
             a {
                 color: $nav-link-color;
+                &:hover {
+                    color: $nav-active-link-color;
+                }
             }
         }
         .active {
             a {
                 background-color: rgba(0, 0, 0, 0);
                 color: $nav-active-link-color;
-            }
-            a:hover {
-                background-color: rgba(0, 0, 0, 0);
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0);
                 color: $nav-active-link-color;
+                }
             }
         }
         a {
