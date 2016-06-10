@@ -69,6 +69,20 @@ h6 {
     font-size: 60px;
 }
 
+#info {
+    h2 {
+        font-family: $secondary-block-header;
+        font-weight: 900;
+        font-size: 45px;
+    }
+}
+
+#info > p {
+    font-family: $secondary-text;
+    font-size: 20px;
+    font-weight: bold;
+}
+
 /* Media Queries */
 
 @media (max-width: 850px) {

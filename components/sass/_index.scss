@@ -51,6 +51,20 @@ a {
     }
 }
 
+.navbar-header button {
+    border: none;
+}
+
+.navbar-default .navbar-toggle {
+    .icon-bar {
+        background-color: $nav-brand-text-color;
+    }
+    &:hover, &:focus {
+        border-radius: 0%;
+        background-color: $fourth-color;
+    }
+}
+
 nav.navbar.shrink {
     min-height: 70px;
     -webkit-transition: all 0.8s ease;
