@@ -49,6 +49,18 @@ a {
   padding-right: 50px;
 }
 
+.navbar-header button {
+  border: none;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #262626;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  border-radius: 0%;
+  background-color: #ffe084;
+}
+
 nav.navbar.shrink {
   min-height: 70px;
   -webkit-transition: all 0.8s ease;
@@ -186,10 +198,11 @@ h6 {
   margin-right: 20px;
   transition: all .3s;
   text-align: center;
+  opacity: 0.7;
 }
 .info-ball img:hover {
   margin-bottom: 40px;
-  opacity: 0.7;
+  opacity: 1.0;
   transition: all .3s;
 }
 
@@ -213,11 +226,38 @@ h6 {
 #about-header {
   font-family: peachy-keen-jf, Helvetica, sans-serif;
   text-align: center;
-  margin-top: 120px;
+  margin-top: 200px;
+  margin-bottom: 40px;
   font-size: 60px;
 }
 
+#info {
+  padding: 40px;
+}
+#info h2 {
+  font-family: acumin-pro-condensed, Helvetica, sans-serif;
+  font-weight: 900;
+  font-size: 45px;
+}
+
+h4 {
+  font-family: ff-dagny-web-pro, Helvetica, sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+#info > p {
+  font-family: ff-dagny-web-pro, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 /* Media Queries */
+@media (max-width: 1199px) {
+  #chef img {
+    margin-top: 150px;
+  }
+}
 @media (max-width: 850px) {
   .flex {
     flex-direction: column;
@@ -230,7 +270,7 @@ h6 {
     margin-bottom: 20px;
   }
 
-  .info-ball img:hover {
+  .info-ball img {
     opacity: 1;
   }
 
@@ -242,9 +282,25 @@ h6 {
   #chef {
     display: none;
   }
+
+  #info h2 {
+    font-size: 35px;
+  }
+
+  h4 {
+    font-size: 20px;
+    font-weight: normal;
+  }
+
+  #info > p {
+    font-size: 15px;
+  }
 }
 @media (max-width: 991px) {
   /* right before columns break */
+  #chef img {
+    margin-top: 0px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
