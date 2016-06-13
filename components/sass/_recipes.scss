@@ -1,0 +1,58 @@
+#background-art {
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(255, 255, 255, 1)), url("../images/recipes_background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: relative;
+    height: 250px;
+    margin-bottom: 20px;
+    margin-top: -10px;
+    h1 {
+        font-family: $secondary-cursive-header;
+        position: absolute;
+        bottom: 10px;
+        left: 40px;
+        font-size: 80px;
+        font-weight: 900;
+    }
+}
+
+#recipes {
+    h2 {
+        font-family: $primary-block-header;
+        font-weight: bold;
+    }
+    input {
+        width: 100%;
+        margin: 10px 0px 10px 0px;
+        background-color: $select-background;
+        border-color: $third-color;
+        border-width: 3px;
+        font-family: $primary-text;
+    }
+}
+
+.element {
+    border: 3px solid $element-text;
+    height:25px;
+    width: 40px;
+    border-radius: 5px;
+    margin: 10px;
+    color: $element-text;
+    background-color: $element-color;
+    cursor: default;
+    text-decoration: none;
+    padding: 3px 5px 3px 3px;
+    font-weight: 900;
+    font-size: 18px;
+    &:hover {
+        cursor: default;
+        text-decoration: none;
+        color: $element-text;
+    }
+    span {
+        margin: 4px;
+        color: $element-text;
+        cursor: pointer;
+    }
+}

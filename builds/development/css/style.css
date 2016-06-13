@@ -302,5 +302,61 @@ h4 {
     margin-top: 0px;
   }
 }
+#background-art {
+  background: linear-gradient(transparent, white), url("../images/recipes_background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: relative;
+  height: 250px;
+  margin-bottom: 20px;
+  margin-top: -10px;
+}
+#background-art h1 {
+  font-family: grafolita-script, Times, serif;
+  position: absolute;
+  bottom: 10px;
+  left: 40px;
+  font-size: 80px;
+  font-weight: 900;
+}
+
+#recipes h2 {
+  font-family: skolar-sans-latin, Helvetica, sans-serif;
+  font-weight: bold;
+}
+#recipes input {
+  width: 100%;
+  margin: 10px 0px 10px 0px;
+  background-color: #f4a4a4;
+  border-color: #ffc057;
+  border-width: 3px;
+  font-family: usual, Helvetica, sans-serif;
+}
+
+.element {
+  border: 3px solid #f98b60;
+  height: 25px;
+  width: 40px;
+  border-radius: 5px;
+  margin: 10px;
+  color: #f98b60;
+  background-color: #ffe084;
+  cursor: default;
+  text-decoration: none;
+  padding: 3px 5px 3px 3px;
+  font-weight: 900;
+  font-size: 18px;
+}
+.element:hover {
+  cursor: default;
+  text-decoration: none;
+  color: #f98b60;
+}
+.element span {
+  margin: 4px;
+  color: #f98b60;
+  cursor: pointer;
+}
 
 /*# sourceMappingURL=style.css.map */

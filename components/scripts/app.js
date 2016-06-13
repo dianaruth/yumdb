@@ -13,10 +13,10 @@ yumdb.config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider){
         $routeProvider.
             when('/', {
-                templateUrl : 'partials/main.html'
+                templateUrl : '/partials/main.html'
             }).
             when('/recipes', {
-                templateUrl : 'partials/recipes.html'
+                templateUrl : '/partials/recipes.html'
             }).
             otherwise({
                 redirectTo: '/'

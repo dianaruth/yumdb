@@ -15,10 +15,10 @@ yumdb.config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider){
         $routeProvider.
             when('/', {
-                templateUrl : 'partials/main.html'
+                templateUrl : '/partials/main.html'
             }).
             when('/recipes', {
-                templateUrl : 'partials/recipes.html'
+                templateUrl : '/partials/recipes.html'
             }).
             otherwise({
                 redirectTo: '/'
@@ -34,17 +34,10 @@ yumdb.config(['$routeProvider', '$locationProvider',
 
 var yumdbControllers = angular.module('yumdbControllers', []);
 
-// returnOfTheAPIControllers.controller('PeopleListController', ['$scope', 'peopleService',
-//     function($scope, peopleService) {
-//         $scope.people = [];
-//         peopleService.getPeople().then(function(data) {
-//             $scope.people = data.people;
-//             $scope.sortType = 'name';
-//             $scope.sortReverse = false;
-//             $scope.currentPage = 1;
-//             $scope.pageSize = 10;
-//         });
-//     }]);
+yumdbControllers.controller('IngredientsController', ['$scope',
+    function($scope) {
+        
+    }]);
 
 $(window).scroll(function() {
     if ($(document).scrollTop() > 50) {
