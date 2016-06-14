@@ -5,12 +5,12 @@
 var yumdbServices = angular.module('yumdbServices', ['ngResource']);
 
 
-// returnOfTheAPIServices.factory('peopleService', function($http) {
-//     return {
-//         getPeople: function() {
-//             return $http.get('/get_people').then(function(r) {
-//                 return r.data;
-//             });
-//         }
-//     }
-// });
+yumdbServices.factory('recipeSearchService', function($http) {
+    return {
+        getIngredients: function() {
+            return $http.get('data/ingredients.json').then(function(r) {
+                return r.data;
+            });
+        }
+    }
+});

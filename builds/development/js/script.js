@@ -34,9 +34,22 @@ yumdb.config(['$routeProvider', '$locationProvider',
 
 var yumdbControllers = angular.module('yumdbControllers', []);
 
-yumdbControllers.controller('IngredientsController', ['$scope',
-    function($scope) {
-        
+yumdbControllers.controller('IncludedIngredientsController', ['$scope', 'recipeSearchService',
+    function($scope, recipeSearchService) {
+        $scope.test = function() {
+            alert($("#included-ingredients-input").val());
+        };
+        recipeSearchService.getIngredients().then(function(data) {
+            var list = data.map( function (ingredient) {
+                return {
+                    label: ingredient.term,
+                    value: ingredient.searchValue
+                };
+            });
+            $( "#included-ingredients-input" ).autocomplete({
+                source: list
+            });
+        });
     }]);
 
 $(window).scroll(function() {
@@ -56,12 +69,12 @@ $(window).scroll(function() {
 var yumdbServices = angular.module('yumdbServices', ['ngResource']);
 
 
-// returnOfTheAPIServices.factory('peopleService', function($http) {
-//     return {
-//         getPeople: function() {
-//             return $http.get('/get_people').then(function(r) {
-//                 return r.data;
-//             });
-//         }
-//     }
-// });
+yumdbServices.factory('recipeSearchService', function($http) {
+    return {
+        getIngredients: function() {
+            return $http.get('data/ingredients.json').then(function(r) {
+                return r.data;
+            });
+        }
+    }
+});
