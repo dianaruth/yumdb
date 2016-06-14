@@ -32,12 +32,18 @@
     }
 }
 
+.element-group {
+    line-height: 40px;
+    span {
+        white-space: nowrap;
+    }
+}
+
 .element {
     border: 3px solid $element-text;
     height:25px;
     width: 40px;
     border-radius: 5px;
-    margin: 10px;
     color: $element-text;
     background-color: $element-color;
     cursor: default;
@@ -50,7 +56,7 @@
         text-decoration: none;
         color: $element-text;
     }
-    span {
+    i {
         margin: 4px;
         color: $element-text;
         cursor: pointer;

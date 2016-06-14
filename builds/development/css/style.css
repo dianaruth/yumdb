@@ -334,12 +334,18 @@ h4 {
   font-family: usual, Helvetica, sans-serif;
 }
 
+.element-group {
+  line-height: 40px;
+}
+.element-group span {
+  white-space: nowrap;
+}
+
 .element {
   border: 3px solid #f98b60;
   height: 25px;
   width: 40px;
   border-radius: 5px;
-  margin: 10px;
   color: #f98b60;
   background-color: #ffe084;
   cursor: default;
@@ -353,7 +359,7 @@ h4 {
   text-decoration: none;
   color: #f98b60;
 }
-.element span {
+.element i {
   margin: 4px;
   color: #f98b60;
   cursor: pointer;
