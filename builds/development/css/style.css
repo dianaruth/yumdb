@@ -334,17 +334,10 @@ h4 {
   font-family: usual, Helvetica, sans-serif;
 }
 
-.element-group {
-  line-height: 40px;
-}
-.element-group span {
-  white-space: nowrap;
-}
-
 .element {
+  white-space: nowrap;
+  display: inline-block;
   border: 3px solid #f98b60;
-  height: 25px;
-  width: 40px;
   border-radius: 5px;
   color: #f98b60;
   background-color: #ffe084;
@@ -353,15 +346,39 @@ h4 {
   padding: 3px 5px 3px 3px;
   font-weight: 900;
   font-size: 18px;
-}
-.element:hover {
-  cursor: default;
-  text-decoration: none;
-  color: #f98b60;
+  margin: 2px;
 }
 .element i {
   margin: 4px;
-  color: #f98b60;
+}
+.element i:hover {
+  cursor: pointer;
+}
+
+.ui-helper-hidden-accessible {
+  display: none;
+}
+
+.ui-autocomplete {
+  background: #f98b60;
+  font-family: usual, Helvetica, sans-serif;
+  list-style: none;
+  text-align: left;
+  border: 1px solid #ffe084;
+  border-top: none;
+  list-style: none;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+.ui-menu-item {
+  padding: 5px;
+  padding-left: 10px;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+  background: #f8703a;
   cursor: pointer;
 }
 

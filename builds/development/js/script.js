@@ -43,11 +43,13 @@ yumdbControllers.controller('IncludedIngredientsController', ['$scope', 'recipeS
             var list = data.map( function (ingredient) {
                 return {
                     label: ingredient.term,
-                    value: ingredient.searchValue
+                    value: ingredient.searchValue,
+                    minLength: 0
                 };
             });
             $( "#included-ingredients-input" ).autocomplete({
-                source: list
+                source: list,
+                appendTo: $("#included-ingredients-input").next()
             });
         });
     }]);

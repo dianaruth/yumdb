@@ -32,17 +32,10 @@
     }
 }
 
-.element-group {
-    line-height: 40px;
-    span {
-        white-space: nowrap;
-    }
-}
-
 .element {
+    white-space: nowrap;
+    display: inline-block;
     border: 3px solid $element-text;
-    height:25px;
-    width: 40px;
     border-radius: 5px;
     color: $element-text;
     background-color: $element-color;
@@ -51,14 +44,38 @@
     padding: 3px 5px 3px 3px;
     font-weight: 900;
     font-size: 18px;
-    &:hover {
-        cursor: default;
-        text-decoration: none;
-        color: $element-text;
-    }
+    margin: 2px;
     i {
         margin: 4px;
-        color: $element-text;
-        cursor: pointer;
+        &:hover {
+            cursor: pointer;
+        }
     }
+}
+
+.ui-helper-hidden-accessible {
+    display: none;
+}
+
+.ui-autocomplete {
+    background: $secondary-color;
+    font-family: $primary-text;
+    list-style: none;
+    text-align: left;
+    border: 1px solid $fourth-color;
+    border-top: none;
+    list-style: none;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.ui-menu-item {
+    padding: 5px;
+    padding-left:10px;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+    background: $autocomplete-hover;
+    cursor: pointer;
 }
