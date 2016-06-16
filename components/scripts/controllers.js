@@ -13,13 +13,15 @@ yumdbControllers.controller('IncludedIngredientsController', ['$scope', 'recipeS
             var list = data.map( function (ingredient) {
                 return {
                     label: ingredient.term,
-                    value: ingredient.searchValue,
-                    minLength: 0
+                    value: ingredient.searchValue
                 };
             });
             $( "#included-ingredients-input" ).autocomplete({
                 source: list,
-                appendTo: $("#included-ingredients-input").next()
+                appendTo: $("#included-ingredients-input").next(),
+                select: function( event, ui ) {
+                    console.log(ui.item.label);
+                }
             });
         });
     }]);
