@@ -384,4 +384,31 @@ h4 {
   cursor: pointer;
 }
 
+.help-button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.popover-content {
+  font-family: ff-dagny-web-pro, Helvetica, sans-serif;
+  font-size: 15px;
+}
+
+#search-button, #clear-button {
+  font-family: hwt-artz, Helvetica, sans-serif;
+  padding: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #ffc057;
+  border: 4px solid #f98b60;
+  border-radius: 0px;
+  font-size: 30px;
+  margin: 30px;
+  outline: none;
+}
+#search-button:hover, #clear-button:hover {
+  background-color: #ffe084;
+}
+
 /*# sourceMappingURL=style.css.map */
