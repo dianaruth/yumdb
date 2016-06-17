@@ -225,6 +225,7 @@ h6 {
 
 #about-header {
   font-family: peachy-keen-jf, Helvetica, sans-serif;
+  color: #ffc057;
   text-align: center;
   margin-top: 200px;
   margin-bottom: 40px;
@@ -235,7 +236,8 @@ h6 {
   padding: 40px;
 }
 #info h2 {
-  font-family: acumin-pro-condensed, Helvetica, sans-serif;
+  font-family: hwt-artz, Helvetica, sans-serif;
+  color: #f98b60;
   font-weight: 900;
   font-size: 45px;
 }

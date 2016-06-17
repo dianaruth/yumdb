@@ -20,7 +20,11 @@ yumdbControllers.controller('IncludedIngredientsController', ['$scope', 'recipeS
                 source: list,
                 appendTo: $("#included-ingredients-input").next(),
                 select: function( event, ui ) {
-                    console.log(ui.item.label);
+                    // add ingredient to list
+                    $("#included-ingredients-list").append('<span class="element"><i class="fa fa-times" onclick="$(this).parent().remove();"></i><span>' + ui.item.label + '</span><span class="hidden value">' + ui.item.value + '</span></span>');
+                    // clear text box
+                    $("#included-ingredients-input").val("");
+                    return false;
                 }
             });
         });
