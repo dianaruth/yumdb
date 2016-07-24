@@ -327,7 +327,7 @@ h4 {
   font-family: skolar-sans-latin, Helvetica, sans-serif;
   font-weight: bold;
 }
-#recipes input {
+#recipes input, #recipes select {
   width: 100%;
   margin: 10px 0px 10px 0px;
   background-color: #f4a4a4;

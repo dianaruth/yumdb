@@ -1,2 +1,6 @@
 .DS_STORE
 .sass-cache/
+bower_components/
+node_modules/
+builds/development/data/
+builds/development/images/

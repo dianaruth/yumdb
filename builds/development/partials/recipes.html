@@ -55,36 +55,54 @@
         <div class="row">
             <div class="col-lg-6 col-md-6">
                 <h2>Allergies</h2>
-                <input type="text" class="form-control">
+                <select id="allergy-input" class="form-control">
+                    <option disabled selected></option>
+                    <option ng-repeat="option in allergies" value="{{option.searchValue}}">{{option.shortDescription}}</option>
+                </select>
                 <div class="element-group" id="allergy-list"></div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <h2>Dietary Restrictions</h2>
-                <input type="text" class="form-control">
+                <select id="diet-input" class="form-control">
+                    <option disabled selected></option>
+                    <option ng-repeat="option in diets" value="{{option.searchValue}}">{{option.shortDescription}}</option>
+                </select>
                 <div class="element-group" id="diet-list"></div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6">
                 <h2>Included Cuisines</h2>
-                <input type="text" class="form-control">
+                <select id="included-cuisine-input" class="form-control">
+                    <option disabled selected></option>
+                    <option ng-repeat="option in cuisines" value="{{option.searchValue}}">{{option.name}}</option>
+                </select>
                 <div class="element-group" id="included-cuisine-list"></div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <h2>Excluded Cuisines</h2>
-                <input type="text" class="form-control">
+                <select id="excluded-cuisine-input" class="form-control">
+                    <option disabled selected></option>
+                    <option ng-repeat="option in cuisines" value="{{option.searchValue}}">{{option.name}}</option>
+                </select>
                 <div class="element-group" id="excluded-cuisine-list"></div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6">
-                <h2>Course</h2>
-                <input type="text" class="form-control">
+                <h2>Courses</h2>
+                <select id="course-input" class="form-control">
+                    <option disabled selected></option>
+                    <option ng-repeat="option in courses" value="{{option.searchValue}}">{{option.name}}</option>
+                </select>
                 <div class="element-group" id="course-list"></div>
             </div>
             <div class="col-lg-6 col-md-6">
-                <h2>Holiday</h2>
-                <input type="text" class="form-control">
+                <h2>Holidays</h2>
+                <select id="holiday-input" class="form-control">
+                    <option disabled selected></option>
+                    <option ng-repeat="option in holidays" value="{{option.searchValue}}">{{option.name}}</option>
+                </select>
                 <div class="element-group" id="holiday-list"></div>
             </div>
         </div>

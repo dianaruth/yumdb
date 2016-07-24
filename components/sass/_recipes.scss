@@ -22,7 +22,7 @@
         font-family: $primary-block-header;
         font-weight: bold;
     }
-    input {
+    input, select {
         width: 100%;
         margin: 10px 0px 10px 0px;
         background-color: $select-background;
