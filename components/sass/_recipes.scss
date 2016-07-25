@@ -32,6 +32,17 @@
     }
 }
 
+#loading {
+    font-family: $third-block-header;
+    text-align: center;
+    font-size: 80px;
+    min-height: 400px;
+    margin-top: 70px;
+    span {
+
+    }
+}
+
 .element {
     white-space: nowrap;
     display: inline-block;

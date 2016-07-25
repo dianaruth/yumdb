@@ -336,6 +336,14 @@ h4 {
   font-family: usual, Helvetica, sans-serif;
 }
 
+#loading {
+  font-family: peachy-keen-jf, Helvetica, sans-serif;
+  text-align: center;
+  font-size: 80px;
+  min-height: 400px;
+  margin-top: 70px;
+}
+
 .element {
   white-space: nowrap;
   display: inline-block;

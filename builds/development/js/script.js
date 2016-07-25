@@ -39,6 +39,7 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
         // enable popovers
         $('[data-toggle="popover"]').popover();
         // hide results while user is entering search terms
+        $("#loading").hide();
         $("#results").hide();
         // load autocomplete search bars for ingredient inputs and enable deletion of items
         recipeSearchService.getIngredients().then(function(data) {
@@ -198,9 +199,15 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
         });
         // button logic
         $("#search-button").click(function() {
-            alert("search");
             // logic for searching and displaying results here
             // animate terms div going away
+            $( "#search-terms" ).hide( "slow", function() {
+                // show loading screen
+                $("#loading").show("fast");
+            });
+            // recipeSearchService.getResults().then(function(data) {
+            //     console.log(data);
+            // });
             // loading screen
             // append results to results div
             // hide loading screen
@@ -237,8 +244,7 @@ $(window).scroll(function() {
 
 var yumdbServices = angular.module('yumdbServices', ['ngResource']);
 
-
-yumdbServices.factory('recipeSearchService', function($http) {
+yumdbServices.factory('recipeSearchService', ['$http', 'APP_ID', 'APP_KEY', function($http, APP_ID, APP_KEY) {
     return {
         getIngredients: function() {
             return $http.get('data/ingredients.json').then(function(r) {
@@ -269,6 +275,11 @@ yumdbServices.factory('recipeSearchService', function($http) {
             return $http.get('data/holiday.json').then(function(r) {
                 return r.data;
             });
+        },
+        getResults: function(){//includedIngredients, excludedIngredients, allergies, dietaryRestrictions, includedCuisines, excludedCuisines, courses, holidays) {
+            return $http.get('data/holiday.json').then(function(r) {
+                return APP_KEY;
+            });
         }
     }
-});
+}]);
