@@ -4,7 +4,10 @@
 
 var yumdbServices = angular.module('yumdbServices', ['ngResource']);
 
-yumdbServices.factory('recipeSearchService', ['$http', 'APP_ID', 'APP_KEY', function($http, APP_ID, APP_KEY) {
+var APP_ID = "7ff6888f";
+var APP_KEY = "4bc3d67e990b3b608171d7f132a36f8d";
+
+yumdbServices.factory('recipeSearchService', ['$http', function($http, APP_ID, APP_KEY) {
     return {
         getIngredients: function() {
             return $http.get('data/ingredients.json').then(function(r) {
