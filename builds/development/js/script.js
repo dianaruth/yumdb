@@ -15,10 +15,10 @@ yumdb.config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider){
         $routeProvider.
             when('/', {
-                templateUrl : 'partials/main.html'
+                templateUrl : '/partials/main.html'
             }).
             when('/recipes', {
-                templateUrl : 'partials/recipes.html'
+                templateUrl : '/partials/recipes.html'
             }).
             otherwise({
                 redirectTo: '/'
@@ -34,17 +34,198 @@ yumdb.config(['$routeProvider', '$locationProvider',
 
 var yumdbControllers = angular.module('yumdbControllers', []);
 
-// returnOfTheAPIControllers.controller('PeopleListController', ['$scope', 'peopleService',
-//     function($scope, peopleService) {
-//         $scope.people = [];
-//         peopleService.getPeople().then(function(data) {
-//             $scope.people = data.people;
-//             $scope.sortType = 'name';
-//             $scope.sortReverse = false;
-//             $scope.currentPage = 1;
-//             $scope.pageSize = 10;
-//         });
-//     }]);
+yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchService',
+    function($scope, recipeSearchService) {
+        // enable popovers
+        $('[data-toggle="popover"]').popover();
+        // hide results while user is entering search terms
+        $("#loading").hide();
+        $("#results").hide();
+        // load autocomplete search bars for ingredient inputs and enable deletion of items
+        recipeSearchService.getIngredients().then(function(data) {
+            $scope.included_ingredients = [];
+            var list = data.map( function (ingredient) {
+                return {
+                    label: ingredient.term,
+                    value: ingredient.searchValue
+                };
+            });
+            $( "#included-ingredients-input" ).autocomplete({
+                source: list,
+                appendTo: $("#included-ingredients-input").next(),
+                select: function( event, ui ) {
+                    // add ingredient to list if not already there
+                    var children = $("#included-ingredients-list").children();
+                    var found = false;
+                    for (var i = 1; i < children.length; i++) {
+                        if (children[i].lastElementChild.textContent == ui.item.value){
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        $("#included-ingredients-list").append('<span class="element"><i class="fa fa-times" onclick="$(this).parent().remove();"></i><span>' + ui.item.label + '</span><span class="hidden value">' + ui.item.value + '</span></span>');
+                    }
+                    // clear text box
+                    $("#included-ingredients-input").val("");
+                    return false;
+                }
+            });
+            $( "#excluded-ingredients-input" ).autocomplete({
+                source: list,
+                appendTo: $("#excluded-ingredients-input").next(),
+                select: function( event, ui ) {
+                    var children = $("#excluded-ingredients-list").children();
+                    var found = false;
+                    for (var i = 1; i < children.length; i++) {
+                        if (children[i].lastElementChild.textContent == ui.item.value){
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        $("#excluded-ingredients-list").append('<span class="element"><i class="fa fa-times" onclick="$(this).parent().remove();"></i><span>' + ui.item.label + '</span><span class="hidden value">' + ui.item.value + '</span></span>');
+                    }
+                    // clear text box
+                    $("#excluded-ingredients-input").val("");
+                    return false;
+                }
+            });
+        });
+        recipeSearchService.getAllergy().then(function(data) {
+            $scope.allergies = data;
+            $("#allergy-input").on("change", function() {
+                var val = this.value;
+                var text = $("#allergy-input option:selected").text();
+                var children = $("#allergy-list").children();
+                var found = false;
+                for (var i = 0; i < children.length; i++) {
+                    if (children[i].lastElementChild.textContent == val){
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    $("#allergy-list").append('<span class="element"><i class="fa fa-times" onclick="$(this).parent().remove();"></i><span>' + text + '</span><span class="hidden value">' + val + '</span></span>');
+                }
+            });
+        });
+        recipeSearchService.getDiet().then(function(data) {
+            $scope.diets = data;
+            $("#diet-input").on("change", function() {
+                var val = this.value;
+                var text = $("#diet-input option:selected").text();
+                var children = $("#diet-list").children();
+                var found = false;
+                for (var i = 0; i < children.length; i++) {
+                    if (children[i].lastElementChild.textContent == val){
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    $("#diet-list").append('<span class="element"><i class="fa fa-times" onclick="$(this).parent().remove();"></i><span>' + text + '</span><span class="hidden value">' + val + '</span></span>');
+                }
+            });
+        });
+        recipeSearchService.getCuisine().then(function(data) {
+            $scope.cuisines = data;
+            $("#included-cuisine-input").on("change", function() {
+                var val = this.value;
+                var text = $("#included-cuisine-input option:selected").text();
+                var children = $("#included-cuisine-list").children();
+                var found = false;
+                for (var i = 0; i < children.length; i++) {
+                    if (children[i].lastElementChild.textContent == val){
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    $("#included-cuisine-list").append('<span class="element"><i class="fa fa-times" onclick="$(this).parent().remove();"></i><span>' + text + '</span><span class="hidden value">' + val + '</span></span>');
+                }
+            });
+            $("#excluded-cuisine-input").on("change", function() {
+                var val = this.value;
+                var text = $("#excluded-cuisine-input option:selected").text();
+                var children = $("#excluded-cuisine-list").children();
+                var found = false;
+                for (var i = 0; i < children.length; i++) {
+                    if (children[i].lastElementChild.textContent == val){
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    $("#excluded-cuisine-list").append('<span class="element"><i class="fa fa-times" onclick="$(this).parent().remove();"></i><span>' + text + '</span><span class="hidden value">' + val + '</span></span>');
+                }
+            });
+        });
+        recipeSearchService.getCourse().then(function(data) {
+            $scope.courses = data;
+            $("#course-input").on("change", function() {
+                var val = this.value;
+                var text = $("#course-input option:selected").text();
+                var children = $("#course-list").children();
+                var found = false;
+                for (var i = 0; i < children.length; i++) {
+                    if (children[i].lastElementChild.textContent == val){
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    $("#course-list").append('<span class="element"><i class="fa fa-times" onclick="$(this).parent().remove();"></i><span>' + text + '</span><span class="hidden value">' + val + '</span></span>');
+                }
+            });
+        });
+        recipeSearchService.getHoliday().then(function(data) {
+            $scope.holidays = data;
+            $("#holiday-input").on("change", function() {
+                var val = this.value;
+                var text = $("#holiday-input option:selected").text();
+                var children = $("#holiday-list").children();
+                var found = false;
+                for (var i = 0; i < children.length; i++) {
+                    if (children[i].lastElementChild.textContent == val){
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    $("#holiday-list").append('<span class="element"><i class="fa fa-times" onclick="$(this).parent().remove();"></i><span>' + text + '</span><span class="hidden value">' + val + '</span></span>');
+                }
+            });
+        });
+        // button logic
+        $("#search-button").click(function() {
+            // logic for searching and displaying results here
+            // animate terms div going away
+            $( "#search-terms" ).hide( "slow", function() {
+                // show loading screen
+                $("#loading").show("fast");
+            });
+            // recipeSearchService.getResults().then(function(data) {
+            //     console.log(data);
+            // });
+            // loading screen
+            // append results to results div
+            // hide loading screen
+            // show results div
+        });
+        $("#clear-button").click(function() {
+            // clear all lists
+            $("#included-ingredients-list").empty();
+            $("#excluded-ingredients-list").empty();
+            $("#allergy-list").empty();
+            $("#diet-list").empty();
+            $("#included-cuisine-list").empty();
+            $("#excluded-cuisine-list").empty();
+            $("#course-list").empty();
+            $("#holiday-list").empty();
+        });
+
+    }]);
 
 $(window).scroll(function() {
     if ($(document).scrollTop() > 50) {
@@ -56,19 +237,49 @@ $(window).scroll(function() {
 });
 
 
+
 'use strict';
 
 /* Services */
 
 var yumdbServices = angular.module('yumdbServices', ['ngResource']);
 
-
-// returnOfTheAPIServices.factory('peopleService', function($http) {
-//     return {
-//         getPeople: function() {
-//             return $http.get('/get_people').then(function(r) {
-//                 return r.data;
-//             });
-//         }
-//     }
-// });
+yumdbServices.factory('recipeSearchService', ['$http', 'APP_ID', 'APP_KEY', function($http, APP_ID, APP_KEY) {
+    return {
+        getIngredients: function() {
+            return $http.get('data/ingredients.json').then(function(r) {
+                return r.data;
+            });
+        },
+        getAllergy: function() {
+            return $http.get('data/allergy.json').then(function(r) {
+                return r.data;
+            });
+        },
+        getCourse: function() {
+            return $http.get('data/course.json').then(function(r) {
+                return r.data;
+            });
+        },
+        getCuisine: function() {
+            return $http.get('data/cuisine.json').then(function(r) {
+                return r.data;
+            });
+        },
+        getDiet: function() {
+            return $http.get('data/diet.json').then(function(r) {
+                return r.data;
+            });
+        },
+        getHoliday: function() {
+            return $http.get('data/holiday.json').then(function(r) {
+                return r.data;
+            });
+        },
+        getResults: function(){//includedIngredients, excludedIngredients, allergies, dietaryRestrictions, includedCuisines, excludedCuisines, courses, holidays) {
+            return $http.get('data/holiday.json').then(function(r) {
+                return APP_KEY;
+            });
+        }
+    }
+}]);

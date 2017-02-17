@@ -1,1 +1,120 @@
-Recipes
+<div id="background-art" class="row">
+    <h1>Recipe Search</h1>
+</div>
+<section id="recipes" class="container" ng-controller="RecipeSearchController">
+    <div id="search-terms">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h2>
+                    <span>Keyword Search
+                        <button
+                            class="help-button"
+                            data-toggle="popover"
+                            data-trigger="focus"
+                            data-content="This field is optional, but if you'd like to search for a specific dish you can enter your search terms here.">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </button>
+                    </span>
+                </h2>
+                <input type="text" class="form-control" placeholder="What would you like to cook today?">
+            </div>
+        </div>
+        <div class="row">
+            </script>
+            <div class="col-lg-6 col-md-6">
+                <h2>
+                    <span>Included Ingredients
+                        <button
+                            class="help-button"
+                            data-toggle="popover"
+                            data-trigger="focus"
+                            data-content="These are the ingredients you want to include in your recipe search. Start typing the name of an ingredient and autocomplete options will appear. Select an option by using the arrow and enter keys or by clicking on an ingredient in the list. You can search by generic ingredient name or by specific brand names.">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </button>
+                    </span>
+                </h2>
+                <input type="text" class="form-control" id="included-ingredients-input">
+                <div id="included-ingredients-list" class="element-group"></div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <h2>
+                    <span>Excluded Ingredients
+                        <button
+                            class="help-button"
+                            data-toggle="popover"
+                            data-trigger="focus"
+                            data-content="These are the ingredients you want to exclude from your recipe search. Start typing the name of an ingredient and autocomplete options will appear. Select an option by using the arrow and enter keys or by clicking on an ingredient in the list. You can search by generic ingredient name or by specific brand names.">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </button>
+                    </span>
+                </h2>
+                <input type="text" class="form-control" id="excluded-ingredients-input">
+                <div id="excluded-ingredients-list" class="element-group"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <h2>Allergies</h2>
+                <select id="allergy-input" class="form-control">
+                    <option disabled selected></option>
+                    <option ng-repeat="option in allergies" value="{{option.searchValue}}">{{option.shortDescription}}</option>
+                </select>
+                <div class="element-group" id="allergy-list"></div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <h2>Dietary Restrictions</h2>
+                <select id="diet-input" class="form-control">
+                    <option disabled selected></option>
+                    <option ng-repeat="option in diets" value="{{option.searchValue}}">{{option.shortDescription}}</option>
+                </select>
+                <div class="element-group" id="diet-list"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <h2>Included Cuisines</h2>
+                <select id="included-cuisine-input" class="form-control">
+                    <option disabled selected></option>
+                    <option ng-repeat="option in cuisines" value="{{option.searchValue}}">{{option.name}}</option>
+                </select>
+                <div class="element-group" id="included-cuisine-list"></div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <h2>Excluded Cuisines</h2>
+                <select id="excluded-cuisine-input" class="form-control">
+                    <option disabled selected></option>
+                    <option ng-repeat="option in cuisines" value="{{option.searchValue}}">{{option.name}}</option>
+                </select>
+                <div class="element-group" id="excluded-cuisine-list"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <h2>Courses</h2>
+                <select id="course-input" class="form-control">
+                    <option disabled selected></option>
+                    <option ng-repeat="option in courses" value="{{option.searchValue}}">{{option.name}}</option>
+                </select>
+                <div class="element-group" id="course-list"></div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <h2>Holidays</h2>
+                <select id="holiday-input" class="form-control">
+                    <option disabled selected></option>
+                    <option ng-repeat="option in holidays" value="{{option.searchValue}}">{{option.name}}</option>
+                </select>
+                <div class="element-group" id="holiday-list"></div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <button class="btn" id="search-button">Search</button>
+            <button class="btn" id="clear-button">Clear</button>
+        </div>
+    </div>
+    <div id="loading">
+        <span>L</span><span>o</span><span>a</span><span>d</span><span>i</span><span>n</span><span>g</span><span>.</span><span>.</span><span>.</span>
+    </div>
+    <div id="results">
+    some results
+    </div>
+</section>

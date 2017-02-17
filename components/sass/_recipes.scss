@@ -1,0 +1,119 @@
+#background-art {
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(255, 255, 255, 1)), url("../images/recipes_background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: relative;
+    height: 250px;
+    margin-bottom: 20px;
+    margin-top: -10px;
+    h1 {
+        font-family: $secondary-cursive-header;
+        position: absolute;
+        bottom: 10px;
+        left: 40px;
+        font-size: 80px;
+        font-weight: 900;
+    }
+}
+
+#recipes {
+    h2 {
+        font-family: $primary-block-header;
+        font-weight: bold;
+    }
+    input, select {
+        width: 100%;
+        margin: 10px 0px 10px 0px;
+        background-color: $select-background;
+        border-color: $third-color;
+        border-width: 3px;
+        font-family: $primary-text;
+    }
+}
+
+#loading {
+    font-family: $third-block-header;
+    text-align: center;
+    font-size: 80px;
+    min-height: 400px;
+    margin-top: 70px;
+    span {
+
+    }
+}
+
+.element {
+    white-space: nowrap;
+    display: inline-block;
+    border: 3px solid $element-text;
+    border-radius: 5px;
+    color: $element-text;
+    background-color: $element-color;
+    cursor: default;
+    text-decoration: none;
+    padding: 3px 5px 3px 3px;
+    font-weight: 900;
+    font-size: 18px;
+    margin: 2px;
+    i {
+        margin: 4px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.ui-helper-hidden-accessible {
+    display: none;
+}
+
+.ui-autocomplete {
+    background: $secondary-color;
+    font-family: $primary-text;
+    list-style: none;
+    text-align: left;
+    border: 1px solid $fourth-color;
+    border-top: none;
+    list-style: none;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.ui-menu-item {
+    padding: 5px;
+    padding-left:10px;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+    background: $autocomplete-hover;
+    cursor: pointer;
+}
+
+.help-button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.popover-content {
+    font-family: $secondary-text;
+    font-size: 15px;
+}
+
+#search-button, #clear-button {
+    font-family: $about-secondary-header;
+    padding: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: $third-color;
+    border: 4px solid $secondary-color;
+    border-radius: 0px;
+    font-size: 30px;
+    margin: 30px;
+    outline: none;
+    &:hover {
+        background-color: $fourth-color;
+    }
+}

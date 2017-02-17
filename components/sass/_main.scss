@@ -65,6 +65,7 @@ h6 {
 
 #about-header {
     font-family: $third-block-header;
+    color: $third-color;
     text-align: center;
     margin-top: 200px;
     margin-bottom: 40px;
@@ -74,7 +75,8 @@ h6 {
 #info {
     padding: 40px;
     h2 {
-        font-family: $secondary-block-header;
+        font-family: $about-secondary-header;
+        color: $secondary-color;
         font-weight: 900;
         font-size: 45px;
     }
