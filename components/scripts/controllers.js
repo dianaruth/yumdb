@@ -177,13 +177,17 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
             var includedIngredientsElem = $('#included-ingredients-list')[0].childNodes;
             var includedIngredients = [];
             for (var i = 1; i < includedIngredientsElem.length; i++) {
-                includedIngredients.push(encodeURI(includedIngredientsElem[i].innerText));
+                var term = includedIngredientsElem[i].innerText;
+                term = term.substring(0, term.length/2);
+                includedIngredients.push(term);
             }
             $scope.includedIngredients = includedIngredients;
             var excludedIngredientsElem = $('#excluded-ingredients-list')[0].childNodes;
             var excludedIngredients = [];
             for (var i = 1; i < excludedIngredientsElem.length; i++) {
-                excludedIngredients.push(encodeURI(excludedIngredientsElem[i].innerText));
+                var term = excludedIngredientsElem[i].innerText;
+                term = term.substring(0, term.length/2);
+                excludedIngredients.push(term);
             }
             $scope.excludedIngredients = excludedIngredients;
             var allergiesElem = $('#allergy-list')[0].childNodes;
@@ -225,6 +229,7 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
             $scope.pageNum = 1;
             // call service to get results
             recipeSearchService.getResults(keyword, includedIngredients, excludedIngredients, allergies, dietary, includedCuisines, excludedCuisines, course, holiday, 10, 0).then(function(data) {
+                console.log(data);
                 $scope.attribution = data.attribution;
                 $scope.recipes = data.matches;
                 $scope.totalPages = Math.ceil(data.totalMatchCount / 10);
@@ -268,6 +273,15 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
                 $scope.currentRecipe = data;
                 $scope.nutritionDropped = false;
                 $scope.flavorDropped = false;
+                var ingredientsList = data.ingredientLines;
+                var newIngredients = [];
+                for (var i = 0; i < ingredientsList.length; i++) {
+                    if (!newIngredients.includes(ingredientsList[i])) {
+                        newIngredients.push(ingredientsList[i]);
+                    }
+                }
+                $scope.currentRecipe.ingredientLines = newIngredients;
+                console.log($scope.currentRecipe);
             });
             $('#recipe-modal').modal();
         }
