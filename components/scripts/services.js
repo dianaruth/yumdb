@@ -39,7 +39,7 @@ yumdbServices.factory('recipeSearchService', ['$http', function($http) {
             courses, holidays, numResults, start) {
             var APP_ID = "7ff6888f";
             var APP_KEY = "4bc3d67e990b3b608171d7f132a36f8d";
-            var url = "http://api.yummly.com/v1/api/recipes?_app_id=" + APP_ID + "&_app_key=" + APP_KEY + "&";
+            var url = "http://api.yummly.com/v1/api/recipes?_app_id=" + APP_ID + "&_app_key=" + APP_KEY;
             if (!(keyword == '')) {
                 url += "q=" + keyword;
             }
