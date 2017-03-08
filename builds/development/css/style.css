@@ -510,12 +510,16 @@ h4 {
 
 #flavor-profile {
   text-align: center;
-  color: #333333;
+  color: #333;
   font-size: 30px;
 }
 
 #nutrition-note {
   color: #ea5959;
+}
+
+#rating-text {
+  color: #333;
 }
 
 .modal-attribution {
