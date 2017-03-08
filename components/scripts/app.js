@@ -1,9 +1,8 @@
-'use strict';
-
 /* App Module */
 
 var yumdb = angular.module('yumdb', [
     'ngRoute',
+    'ngSanitize',
     'yumdbAnimations',
     'yumdbControllers',
     'yumdbServices'
@@ -15,7 +14,7 @@ yumdb.config(['$routeProvider', '$locationProvider',
             when('/', {
                 templateUrl : '/partials/main.html'
             }).
-            when('/recipes', {
+            when('/recipesearch', {
                 templateUrl : '/partials/recipes.html'
             }).
             otherwise({
@@ -25,3 +24,9 @@ yumdb.config(['$routeProvider', '$locationProvider',
             enabled: true
         });
     }]);
+
+yumdb.filter('trusted', ['$sce', function ($sce) {
+    return function(url) {
+        return $sce.trustAsResourceUrl(url);
+    };
+}]);

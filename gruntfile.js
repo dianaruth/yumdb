@@ -3,7 +3,7 @@ module.exports = function(grunt) {
         concat : {
             dist : {
                 src : ['components/scripts/*.js'],
-                dest : 'builds/development/js/script.js'
+                dest : 'builds/development/js/yumdb.js'
             }
         },   // concat
         bower_concat: {

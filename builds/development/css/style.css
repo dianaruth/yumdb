@@ -403,7 +403,7 @@ h4 {
   font-size: 15px;
 }
 
-#search-button, #clear-button {
+.btn {
   font-family: hwt-artz, Helvetica, sans-serif;
   padding: 0px;
   padding-left: 10px;
@@ -415,8 +415,118 @@ h4 {
   margin: 30px;
   outline: none;
 }
-#search-button:hover, #clear-button:hover {
+.btn:hover {
   background-color: #ffe084;
+}
+
+.result-row {
+  border: 5px solid #f98b60;
+  background-color: #ee7777;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+.result-row img {
+  display: block;
+  margin: auto;
+}
+.result-row h1 {
+  font-family: paralucent-condensed, Helvetica, sans-serif;
+}
+
+.result-row:hover {
+  cursor: pointer;
+  background-color: #f18e8e;
+}
+
+#back-button {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+#prev-page {
+  float: left;
+}
+
+#page-num {
+  text-align: center;
+  font-family: hwt-artz, Helvetica, sans-serif;
+  color: #ffc057;
+}
+
+#next-page {
+  float: right;
+}
+
+#attribution {
+  text-align: center;
+  color: #ffc057;
+}
+
+.modal-content {
+  background-color: #ffe084;
+}
+
+.modal-header, .modal-body, .modal-footer {
+  border: none;
+}
+
+.modal-header h1 {
+  text-align: center;
+  font-family: paralucent-condensed, Helvetica, sans-serif;
+}
+
+#recipe-image {
+  width: 100%;
+}
+
+.rating {
+  text-align: center;
+  margin-top: 20px;
+  color: #ffcc66;
+}
+
+.modal-header h1 {
+  font-size: 50px;
+}
+
+#recipe-modal .rating {
+  text-align: left;
+  color: #ffb31a;
+}
+#recipe-modal h1, #recipe-modal h2, #recipe-modal h3 {
+  font-family: paralucent-condensed, Helvetica, sans-serif;
+}
+#recipe-modal li {
+  font-family: ff-dagny-web-pro, Helvetica, sans-serif;
+  font-size: 20px;
+}
+#recipe-modal a {
+  color: #ee7777;
+}
+
+#flavor-profile-dropdown, #nutrition-profile-dropdown {
+  cursor: pointer;
+}
+
+#flavor-profile {
+  text-align: center;
+  color: #333333;
+  font-size: 30px;
+}
+
+#nutrition-note {
+  color: #ea5959;
+}
+
+.modal-attribution {
+  text-align: center;
+  margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: auto;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

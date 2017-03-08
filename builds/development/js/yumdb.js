@@ -1,11 +1,10 @@
 var yumdbAnimations = angular.module('yumdbAnimations', ['ngAnimate']);
 
-'use strict';
-
 /* App Module */
 
 var yumdb = angular.module('yumdb', [
     'ngRoute',
+    'ngSanitize',
     'yumdbAnimations',
     'yumdbControllers',
     'yumdbServices'
@@ -17,7 +16,7 @@ yumdb.config(['$routeProvider', '$locationProvider',
             when('/', {
                 templateUrl : '/partials/main.html'
             }).
-            when('/recipes', {
+            when('/recipesearch', {
                 templateUrl : '/partials/recipes.html'
             }).
             otherwise({
@@ -28,7 +27,11 @@ yumdb.config(['$routeProvider', '$locationProvider',
         });
     }]);
 
-'use strict';
+yumdb.filter('trusted', ['$sce', function ($sce) {
+    return function(url) {
+        return $sce.trustAsResourceUrl(url);
+    };
+}]);
 
 /* Controllers */
 
@@ -199,19 +202,72 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
         });
         // button logic
         $("#search-button").click(function() {
-            // logic for searching and displaying results here
-            // animate terms div going away
-            $( "#search-terms" ).hide( "slow", function() {
-                // show loading screen
-                $("#loading").show("fast");
+            // hide search input fields
+            $( "#search-terms" ).hide();
+            // show loading screen
+            $("#loading").show();
+            // grab search terms
+            var keyword = encodeURI($('#keyword').val());
+            $scope.keyword = keyword;
+            var includedIngredientsElem = $('#included-ingredients-list')[0].childNodes;
+            var includedIngredients = [];
+            for (var i = 1; i < includedIngredientsElem.length; i++) {
+                includedIngredients.push(encodeURI(includedIngredientsElem[i].innerText));
+            }
+            $scope.includedIngredients = includedIngredients;
+            var excludedIngredientsElem = $('#excluded-ingredients-list')[0].childNodes;
+            var excludedIngredients = [];
+            for (var i = 1; i < excludedIngredientsElem.length; i++) {
+                excludedIngredients.push(encodeURI(excludedIngredientsElem[i].innerText));
+            }
+            $scope.excludedIngredients = excludedIngredients;
+            var allergiesElem = $('#allergy-list')[0].childNodes;
+            var allergies = [];
+            for (var i = 0; i < allergiesElem.length; i++) {
+                allergies.push(allergiesElem[i].childNodes[2].innerText);
+            }
+            $scope.allergies = allergies;
+            var dietaryElem = $('#diet-list')[0].childNodes;
+            var dietary = [];
+            for (var i = 0; i < dietaryElem.length; i++) {
+                dietary.push(dietaryElem[i].childNodes[2].innerText);
+            }
+            $scope.dietary = dietary;
+            var includedCuisinesElem = $('#included-cuisine-list')[0].childNodes;
+            var includedCuisines = [];
+            for (var i = 0; i < includedCuisinesElem.length; i++) {
+                includedCuisines.push(includedCuisinesElem[i].childNodes[2].innerText);
+            }
+            $scope.includedCuisines = includedCuisines;
+            var excludedCuisinesElem = $('#excluded-cuisine-list')[0].childNodes;
+            var excludedCuisines = [];
+            for (var i = 0; i < excludedCuisinesElem.length; i++) {
+                excludedCuisines.push(excludedCuisinesElem[i].childNodes[2].innerText);
+            }
+            $scope.excludedCuisines = excludedCuisines;
+            var courseElem = $('#course-list')[0].childNodes;
+            var course = [];
+            for (var i = 0; i < courseElem.length; i++) {
+                course.push(courseElem[i].childNodes[2].innerText);
+            }
+            $scope.course = course;
+            var holidayElem = $('#holiday-list')[0].childNodes;
+            var holiday = [];
+            for (var i = 0; i < holidayElem.length; i++) {
+                holiday.push(holidayElem[i].childNodes[2].innerText);
+            }
+            $scope.holiday = holiday;
+            $scope.pageNum = 1;
+            // call service to get results
+            recipeSearchService.getResults(keyword, includedIngredients, excludedIngredients, allergies, dietary, includedCuisines, excludedCuisines, course, holiday, 10, 0).then(function(data) {
+                $scope.attribution = data.attribution;
+                $scope.recipes = data.matches;
+                $scope.totalPages = Math.ceil(data.totalMatchCount / 10);
+                $scope.attribution = data.attribution.html;
+                $("#loading").hide();
+                $("#results").show();
+                $(document).scrollTop($("#results").offset().top - 70);
             });
-            // recipeSearchService.getResults().then(function(data) {
-            //     console.log(data);
-            // });
-            // loading screen
-            // append results to results div
-            // hide loading screen
-            // show results div
         });
         $("#clear-button").click(function() {
             // clear all lists
@@ -224,7 +280,32 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
             $("#course-list").empty();
             $("#holiday-list").empty();
         });
-
+        $("#back-button").click(function() {
+            $("#search-terms").show()
+            $("#results").hide();
+        });
+        $("#next-page").click(function() {
+            recipeSearchService.getResults($scope.keyword, $scope.includedIngredients, $scope.excludedIngredients, $scope.allergies, $scope.dietary, $scope.includedCuisines, $scope.excludedCuisines, $scope.course, $scope.holiday, 10, ($scope.pageNum * 10)).then(function(data) {
+                $scope.recipes = data.matches;
+                $scope.pageNum = $scope.pageNum + 1;
+                $(document).scrollTop($("#results").offset().top - 70);
+            });
+        });
+        $("#prev-page").click(function() {
+            recipeSearchService.getResults($scope.keyword, $scope.includedIngredients, $scope.excludedIngredients, $scope.allergies, $scope.dietary, $scope.includedCuisines, $scope.excludedCuisines, $scope.course, $scope.holiday, 10, ($scope.pageNum - 2) * 10).then(function(data) {
+                $scope.recipes = data.matches;
+                $scope.pageNum = $scope.pageNum - 1;
+                $(document).scrollTop($("#results").offset().top - 70);
+            });
+        });
+        $scope.setCurrentRecipe = function(recipe) {
+            recipeSearchService.getRecipe(recipe.id).then(function(data) {
+                $scope.currentRecipe = data;
+                $scope.nutritionDropped = false;
+                $scope.flavorDropped = false;
+            });
+            $('#recipe-modal').modal();
+        }
     }]);
 
 $(window).scroll(function() {
@@ -238,13 +319,11 @@ $(window).scroll(function() {
 
 
 
-'use strict';
-
 /* Services */
 
 var yumdbServices = angular.module('yumdbServices', ['ngResource']);
 
-yumdbServices.factory('recipeSearchService', ['$http', 'APP_ID', 'APP_KEY', function($http, APP_ID, APP_KEY) {
+yumdbServices.factory('recipeSearchService', ['$http', function($http) {
     return {
         getIngredients: function() {
             return $http.get('data/ingredients.json').then(function(r) {
@@ -276,9 +355,68 @@ yumdbServices.factory('recipeSearchService', ['$http', 'APP_ID', 'APP_KEY', func
                 return r.data;
             });
         },
-        getResults: function(){//includedIngredients, excludedIngredients, allergies, dietaryRestrictions, includedCuisines, excludedCuisines, courses, holidays) {
-            return $http.get('data/holiday.json').then(function(r) {
-                return APP_KEY;
+        getResults: function(keyword, includedIngredients, excludedIngredients,
+            allergies, dietaryRestrictions, includedCuisines, excludedCuisines,
+            courses, holidays, numResults, start) {
+            var APP_ID = "7ff6888f";
+            var APP_KEY = "4bc3d67e990b3b608171d7f132a36f8d";
+            var url = "http://api.yummly.com/v1/api/recipes?_app_id=" + APP_ID + "&_app_key=" + APP_KEY + "&";
+            if (!(keyword == '')) {
+                url += "q=" + keyword;
+            }
+            url += "&requirePictures=true";
+            if (includedIngredients.length > 0) {
+                for (var i = 0; i < includedIngredients.length; i++) {
+                    url += "&allowedIngredient[]=" + encodeURI(includedIngredients[i]);
+                }
+            }
+            if (excludedIngredients.length > 0) {
+                for (var i = 0; i < excludedIngredients.length; i++) {
+                    url += "&excludedIngredient[]=" + encodeURI(excludedIngredients[i]);
+                }
+            }
+            if (allergies.length > 0) {
+                for (var i = 0; i < allergies.length; i++) {
+                    url += "&allowedAllergy[]=" + encodeURI(allergies[i]);
+                }
+            }
+            if (dietaryRestrictions.length > 0) {
+                for (var i = 0; i < dietaryRestrictions.length; i++) {
+                    url += "&allowedDiet[]=" + encodeURI(dietaryRestrictions[i]);
+                }
+            }
+            if (includedCuisines.length > 0) {
+                for (var i = 0; i < includedCuisines.length; i++) {
+                    url += "&allowedCuisine[]=" + encodeURI(includedCuisines[i]);
+                }
+            }
+            if (excludedCuisines.length > 0) {
+                for (var i = 0; i < excludedCuisines.length; i++) {
+                    url += "&excludedCuisine[]=" + encodeURI(excludedCuisines[i]);
+                }
+            }
+            if (courses.length > 0) {
+                for (var i = 0; i < courses.length; i++) {
+                    url += "&allowedCourse[]=" + encodeURI(courses[i]);
+                }
+            }
+            if (excludedCuisines.length > 0) {
+                for (var i = 0; i < excludedCuisines.length; i++) {
+                    url += "&allowedHoliday[]=" + encodeURI(holidays[i]);
+                }
+            }
+            url += "&maxResult=" + numResults + "&start=" + start;
+            // call to Yummly API
+            return $http.get(url).then(function(r) {
+                return r.data;
+            });
+        },
+        getRecipe: function(recipeID) {
+            var APP_ID = "7ff6888f";
+            var APP_KEY = "a215bffa4891258df82de5e745297590";
+            var url = "http://api.yummly.com/v1/api/recipe/" + recipeID + "?_app_id=" + APP_ID + "&_app_key=" + APP_KEY;
+            return $http.get(url).then(function(r) {
+                return r.data;
             });
         }
     }
