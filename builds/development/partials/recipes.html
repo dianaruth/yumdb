@@ -57,7 +57,7 @@
                 <h2>Allergies</h2>
                 <select id="allergy-input" class="form-control">
                     <option disabled selected></option>
-                    <option ng-repeat="option in allergies" value="{{option.searchValue}}">{{option.shortDescription}}</option>
+                    <option ng-repeat="option in allergy" value="{{option.searchValue}}">{{option.shortDescription}}</option>
                 </select>
                 <div class="element-group" id="allergy-list"></div>
             </div>
@@ -161,9 +161,9 @@
                                     <h3><a ng-href="{{currentRecipe.source.sourceRecipeUrl}}" target="_blank">Click here for the full recipe</a></h3>
                                     <h3>Total Time: {{currentRecipe.totalTime}}</h3>
                                     <h3>Servings: {{currentRecipe.numberOfServings}}</h3>
-                                    <h3>Rating:</h3>
                                     <div class="rating">
                                         <span>
+                                            <h3 id="rating-text">Rating:</h3>
                                             <i class="{{currentRecipe.rating > 0 ? 'fa fa-star fa-2x' : 'fa fa-star-o fa-2x'}}" aria-hidden="true"></i>
                                             <i class="{{currentRecipe.rating > 1 ? 'fa fa-star fa-2x' : 'fa fa-star-o fa-2x'}}" aria-hidden="true"></i>
                                             <i class="{{currentRecipe.rating > 2 ? 'fa fa-star fa-2x' : 'fa fa-star-o fa-2x'}}" aria-hidden="true"></i>

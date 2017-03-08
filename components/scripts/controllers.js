@@ -61,7 +61,7 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
             });
         });
         recipeSearchService.getAllergy().then(function(data) {
-            $scope.allergies = data;
+            $scope.allergy = data;
             $("#allergy-input").on("change", function() {
                 var val = this.value;
                 var text = $("#allergy-input option:selected").text();
@@ -229,7 +229,6 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
             $scope.pageNum = 1;
             // call service to get results
             recipeSearchService.getResults(keyword, includedIngredients, excludedIngredients, allergies, dietary, includedCuisines, excludedCuisines, course, holiday, 10, 0).then(function(data) {
-                console.log(data);
                 $scope.attribution = data.attribution;
                 $scope.recipes = data.matches;
                 $scope.totalPages = Math.ceil(data.totalMatchCount / 10);
@@ -281,7 +280,6 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
                     }
                 }
                 $scope.currentRecipe.ingredientLines = newIngredients;
-                console.log($scope.currentRecipe);
             });
             $('#recipe-modal').modal();
         }
