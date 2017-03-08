@@ -16,7 +16,7 @@
                         </button>
                     </span>
                 </h2>
-                <input type="text" class="form-control" placeholder="What would you like to cook today?">
+                <input id="keyword" type="text" class="form-control" placeholder="What would you like to cook today?">
             </div>
         </div>
         <div class="row">
@@ -114,7 +114,119 @@
     <div id="loading">
         <span>L</span><span>o</span><span>a</span><span>d</span><span>i</span><span>n</span><span>g</span><span>.</span><span>.</span><span>.</span>
     </div>
-    <div id="results">
-    some results
+    <div id="results" class="container">
+        <button class="btn" id="back-button">Back to Search</button>
+        <div class="row result-row" ng-repeat="recipe in recipes" ng-click="setCurrentRecipe(recipe)">
+            <div class="col-lg-offset-1 col-lg-3 col-md-offset-1 col-md-3">
+                <img ng-src="{{recipe.imageUrlsBySize[90]}}">
+                <div class="rating">
+                    <span>
+                        <i class="{{recipe.rating > 0 ? 'fa fa-star fa-2x' : 'fa fa-star-o fa-2x'}}" aria-hidden="true"></i>
+                        <i class="{{recipe.rating > 1 ? 'fa fa-star fa-2x' : 'fa fa-star-o fa-2x'}}" aria-hidden="true"></i>
+                        <i class="{{recipe.rating > 2 ? 'fa fa-star fa-2x' : 'fa fa-star-o fa-2x'}}" aria-hidden="true"></i>
+                        <i class="{{recipe.rating > 3 ? 'fa fa-star fa-2x' : 'fa fa-star-o fa-2x'}}" aria-hidden="true"></i>
+                        <i class="{{recipe.rating > 4 ? 'fa fa-star fa-2x' : 'fa fa-star-o fa-2x'}}" aria-hidden="true"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8">
+                <h1>{{recipe.recipeName}}</h1>
+                <h4>Source: {{recipe.sourceDisplayName}}</h4>
+                <h4>Total Time: {{recipe.totalTimeInSeconds / 60}} minutes</h4>
+            </div>
+        </div>
+        <div class="row" id="page-links">
+            <button id="prev-page" class="btn" ng-hide="pageNum == 1">Previous Page</button>
+            <button id="next-page" class="btn" ng-hide="pageNum == totalPages">Next Page</button>
+            <h2 id="page-num">Page {{pageNum}} of {{totalPages}}</h2>
+        </div>
+        <div class="row" id="attribution">
+            <p ng-bind-html="attribution"></p>
+        </div>
+        <div class="modal fade" id="recipe-modal" tabindex="-1" role="dialog">
+            <div class="modal-lg modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h1 class="modal-title">{{currentRecipe.name}}</h1>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4">
+                                    <img id="recipe-image" src="{{currentRecipe.images[0].hostedLargeUrl}}">
+                                </div>
+                                <div class="col-lg-8 col-mg-8">
+                                    <h2>Source: {{currentRecipe.source.sourceDisplayName}}</h2>
+                                    <h3><a ng-href="{{currentRecipe.source.sourceRecipeUrl}}" target="_blank">Click here for the full recipe</a></h3>
+                                    <h3>Total Time: {{currentRecipe.totalTime}}</h3>
+                                    <h3>Servings: {{currentRecipe.numberOfServings}}</h3>
+                                    <h3>Rating:</h3>
+                                    <div class="rating">
+                                        <span>
+                                            <i class="{{currentRecipe.rating > 0 ? 'fa fa-star fa-2x' : 'fa fa-star-o fa-2x'}}" aria-hidden="true"></i>
+                                            <i class="{{currentRecipe.rating > 1 ? 'fa fa-star fa-2x' : 'fa fa-star-o fa-2x'}}" aria-hidden="true"></i>
+                                            <i class="{{currentRecipe.rating > 2 ? 'fa fa-star fa-2x' : 'fa fa-star-o fa-2x'}}" aria-hidden="true"></i>
+                                            <i class="{{currentRecipe.rating > 3 ? 'fa fa-star fa-2x' : 'fa fa-star-o fa-2x'}}" aria-hidden="true"></i>
+                                            <i class="{{currentRecipe.rating > 4 ? 'fa fa-star fa-2x' : 'fa fa-star-o fa-2x'}}" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <h2>Ingredients:</h2>
+                                    <ul>
+                                        <li ng-repeat="ingredient in currentRecipe.ingredientLines track by $index">{{ingredient}}</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <h1 id="flavor-profile-dropdown" data-toggle="collapse" data-target="#flavor-profile" ng-if="currentRecipe.flavors.Bitter" ng-click="flavorDropped = !flavorDropped">Flavor Profile <i class="fa fa-plus" aria-hidden="true" ng-if="!flavorDropped"></i><i class="fa fa-minus" aria-hidden="true" ng-if="flavorDropped"></i></h1>
+                                    <div id="flavor-profile" class="collapse" ng-if="currentRecipe.flavors.Bitter">
+                                        <div>
+                                            <h3>Bitter: <sup>{{currentRecipe.flavors.Bitter * 10 | number: 1}}</sup>&frasl;<sub>10</sub></h3>
+                                            <input type="range" min="0" max="10" value="{{currentRecipe.flavors.Bitter * 10 | number: 1}}" disabled>
+                                        </div>
+                                        <div>
+                                            <h3>Savory: <sup>{{currentRecipe.flavors.Meaty * 10 | number: 1}}</sup>&frasl;<sub>10</sub></h3>
+                                            <input type="range" min="0" max="10" value="{{currentRecipe.flavors.Meaty * 10 | number: 1}}" disabled>
+                                        </div>
+                                        <div>
+                                            <h3>Spicy: <sup>{{currentRecipe.flavors.Piquant * 10 | number: 1}}</sup>&frasl;<sub>10</sub></h3>
+                                            <input type="range" min="0" max="10" value="{{currentRecipe.flavors.Piquant * 10 | number: 1}}" disabled>
+                                        </div>
+                                        <div>
+                                            <h3>Salty: <sup>{{currentRecipe.flavors.Salty * 10 | number: 1}}</sup>&frasl;<sub>10</sub></h3>
+                                            <input type="range" min="0" max="10" value="{{currentRecipe.flavors.Salty * 10 | number: 1}}" disabled>
+                                        </div>
+                                        <div>
+                                            <h3>Sour: <sup>{{currentRecipe.flavors.Sour * 10 | number: 1}}</sup>&frasl;<sub>10</sub></h3>
+                                            <input type="range" min="0" max="10" value="{{currentRecipe.flavors.Sour * 10 | number: 1}}" disabled>
+                                        </div>
+                                        <div>
+                                            <h3>Sweet: <sup>{{currentRecipe.flavors.Sweet * 10 | number: 1}}</sup>&frasl;<sub>10</sub></h3>
+                                            <input type="range" min="0" max="10" value="{{currentRecipe.flavors.Sweet * 10 | number: 1}}" disabled>
+                                        </div>
+                                    </div>
+                                    <h1 id="nutrition-profile-dropdown" data-toggle="collapse" data-target="#nutrition-profile" ng-if="currentRecipe.nutritionEstimates.length > 0" ng-click="nutritionDropped = !nutritionDropped">Nutrition Profile <i class="fa fa-plus" aria-hidden="true" ng-if="!nutritionDropped"></i><i class="fa fa-minus" aria-hidden="true" ng-if="nutritionDropped"></i></h1>
+                                    <div id="nutrition-profile" class="collapse">
+                                        <h3 id="nutrition-note">Note: This information is based on estimates.</h3>
+                                        <ul>
+                                            <li ng-repeat="estimate in currentRecipe.nutritionEstimates"><span ng-if="estimate.description">{{estimate.description}} - </span>{{estimate.value}} {{estimate.unit.plural}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row modal-attribution">
+                                <p ng-bind-html="currentRecipe.attribution.html"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>

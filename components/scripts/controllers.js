@@ -1,5 +1,3 @@
-'use strict';
-
 /* Controllers */
 
 var yumdbControllers = angular.module('yumdbControllers', []);
@@ -169,19 +167,72 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
         });
         // button logic
         $("#search-button").click(function() {
-            // logic for searching and displaying results here
-            // animate terms div going away
-            $( "#search-terms" ).hide( "slow", function() {
-                // show loading screen
-                $("#loading").show("fast");
+            // hide search input fields
+            $( "#search-terms" ).hide();
+            // show loading screen
+            $("#loading").show();
+            // grab search terms
+            var keyword = encodeURI($('#keyword').val());
+            $scope.keyword = keyword;
+            var includedIngredientsElem = $('#included-ingredients-list')[0].childNodes;
+            var includedIngredients = [];
+            for (var i = 1; i < includedIngredientsElem.length; i++) {
+                includedIngredients.push(encodeURI(includedIngredientsElem[i].innerText));
+            }
+            $scope.includedIngredients = includedIngredients;
+            var excludedIngredientsElem = $('#excluded-ingredients-list')[0].childNodes;
+            var excludedIngredients = [];
+            for (var i = 1; i < excludedIngredientsElem.length; i++) {
+                excludedIngredients.push(encodeURI(excludedIngredientsElem[i].innerText));
+            }
+            $scope.excludedIngredients = excludedIngredients;
+            var allergiesElem = $('#allergy-list')[0].childNodes;
+            var allergies = [];
+            for (var i = 0; i < allergiesElem.length; i++) {
+                allergies.push(allergiesElem[i].childNodes[2].innerText);
+            }
+            $scope.allergies = allergies;
+            var dietaryElem = $('#diet-list')[0].childNodes;
+            var dietary = [];
+            for (var i = 0; i < dietaryElem.length; i++) {
+                dietary.push(dietaryElem[i].childNodes[2].innerText);
+            }
+            $scope.dietary = dietary;
+            var includedCuisinesElem = $('#included-cuisine-list')[0].childNodes;
+            var includedCuisines = [];
+            for (var i = 0; i < includedCuisinesElem.length; i++) {
+                includedCuisines.push(includedCuisinesElem[i].childNodes[2].innerText);
+            }
+            $scope.includedCuisines = includedCuisines;
+            var excludedCuisinesElem = $('#excluded-cuisine-list')[0].childNodes;
+            var excludedCuisines = [];
+            for (var i = 0; i < excludedCuisinesElem.length; i++) {
+                excludedCuisines.push(excludedCuisinesElem[i].childNodes[2].innerText);
+            }
+            $scope.excludedCuisines = excludedCuisines;
+            var courseElem = $('#course-list')[0].childNodes;
+            var course = [];
+            for (var i = 0; i < courseElem.length; i++) {
+                course.push(courseElem[i].childNodes[2].innerText);
+            }
+            $scope.course = course;
+            var holidayElem = $('#holiday-list')[0].childNodes;
+            var holiday = [];
+            for (var i = 0; i < holidayElem.length; i++) {
+                holiday.push(holidayElem[i].childNodes[2].innerText);
+            }
+            $scope.holiday = holiday;
+            $scope.pageNum = 1;
+            // call service to get results
+            recipeSearchService.getResults(keyword, includedIngredients, excludedIngredients, allergies, dietary, includedCuisines, excludedCuisines, course, holiday, 10, 0).then(function(data) {
+                $scope.attribution = data.attribution;
+                $scope.recipes = data.matches;
+                $scope.totalPages = Math.ceil(data.totalMatchCount / 10);
+                $scope.attribution = data.attribution.html;
+                $("#loading").hide();
+                $("#results").show();
+                $(document).scrollTop($("#results").offset().top - 70);
             });
-            // recipeSearchService.getResults().then(function(data) {
-            //     console.log(data);
-            // });
-            // loading screen
-            // append results to results div
-            // hide loading screen
-            // show results div
         });
         $("#clear-button").click(function() {
             // clear all lists
@@ -194,5 +245,30 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
             $("#course-list").empty();
             $("#holiday-list").empty();
         });
-
+        $("#back-button").click(function() {
+            $("#search-terms").show()
+            $("#results").hide();
+        });
+        $("#next-page").click(function() {
+            recipeSearchService.getResults($scope.keyword, $scope.includedIngredients, $scope.excludedIngredients, $scope.allergies, $scope.dietary, $scope.includedCuisines, $scope.excludedCuisines, $scope.course, $scope.holiday, 10, ($scope.pageNum * 10)).then(function(data) {
+                $scope.recipes = data.matches;
+                $scope.pageNum = $scope.pageNum + 1;
+                $(document).scrollTop($("#results").offset().top - 70);
+            });
+        });
+        $("#prev-page").click(function() {
+            recipeSearchService.getResults($scope.keyword, $scope.includedIngredients, $scope.excludedIngredients, $scope.allergies, $scope.dietary, $scope.includedCuisines, $scope.excludedCuisines, $scope.course, $scope.holiday, 10, ($scope.pageNum - 2) * 10).then(function(data) {
+                $scope.recipes = data.matches;
+                $scope.pageNum = $scope.pageNum - 1;
+                $(document).scrollTop($("#results").offset().top - 70);
+            });
+        });
+        $scope.setCurrentRecipe = function(recipe) {
+            recipeSearchService.getRecipe(recipe.id).then(function(data) {
+                $scope.currentRecipe = data;
+                $scope.nutritionDropped = false;
+                $scope.flavorDropped = false;
+            });
+            $('#recipe-modal').modal();
+        }
     }]);
