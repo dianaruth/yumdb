@@ -41,7 +41,7 @@ yumdbServices.factory('recipeSearchService', ['$http', function($http) {
             var APP_KEY = "4bc3d67e990b3b608171d7f132a36f8d";
             var url = "http://api.yummly.com/v1/api/recipes?_app_id=" + APP_ID + "&_app_key=" + APP_KEY;
             if (!(keyword == '')) {
-                url += "q=" + keyword;
+                url += "&q=" + keyword;
             }
             url += "&requirePictures=true";
             if (includedIngredients.length > 0) {

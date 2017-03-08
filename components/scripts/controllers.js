@@ -231,10 +231,22 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
             recipeSearchService.getResults(keyword, includedIngredients, excludedIngredients, allergies, dietary, includedCuisines, excludedCuisines, course, holiday, 10, 0).then(function(data) {
                 $scope.attribution = data.attribution;
                 $scope.recipes = data.matches;
-                $scope.totalPages = Math.ceil(data.totalMatchCount / 10);
-                $scope.attribution = data.attribution.html;
-                $("#loading").hide();
-                $("#results").show();
+                if (data.totalMatchCount == 0) {
+                    $scope.pageNum = 0;
+                    $scope.totalPages = 0;
+                    $("#next-page").hide();
+                    $("#prev-page").hide();
+                    $("#no-results").show();
+                    $("#loading").hide();
+                    $("#results").show();
+                }
+                else {
+                    $scope.totalPages = Math.ceil(data.totalMatchCount / 10);
+                    $scope.attribution = data.attribution.html;
+                    $("#no-results").hide();
+                    $("#loading").hide();
+                    $("#results").show();
+                }
                 $(document).scrollTop($("#results").offset().top - 70);
             });
         });

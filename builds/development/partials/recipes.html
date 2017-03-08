@@ -116,6 +116,7 @@
     </div>
     <div id="results" class="container">
         <button class="btn" id="back-button">Back to Search</button>
+        <div id="no-results"><h1>No Results</h1></div>
         <div class="row result-row" ng-repeat="recipe in recipes" ng-click="setCurrentRecipe(recipe)">
             <div class="col-lg-offset-1 col-lg-3 col-md-offset-1 col-md-3">
                 <img ng-src="{{recipe.imageUrlsBySize[90]}}">

@@ -225,6 +225,14 @@
     color: $dark-gray;
 }
 
+#no-results {
+    display: none;
+    text-align: center;
+    font-family: $about-secondary-header;
+    color: $third-color;
+    font-size: 50px;
+}
+
 .modal-attribution {
     text-align: center;
     margin-top: 20px;
