@@ -20,6 +20,7 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
             });
             $( "#included-ingredients-input" ).autocomplete({
                 source: list,
+                minLength: 2,
                 appendTo: $("#included-ingredients-input").next(),
                 select: function( event, ui ) {
                     // add ingredient to list if not already there
@@ -41,6 +42,7 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
             });
             $( "#excluded-ingredients-input" ).autocomplete({
                 source: list,
+                minLength: 2,
                 appendTo: $("#excluded-ingredients-input").next(),
                 select: function( event, ui ) {
                     var children = $("#excluded-ingredients-list").children();
@@ -229,7 +231,7 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
             $scope.pageNum = 1;
             // call service to get results
             recipeSearchService.getResults(keyword, includedIngredients, excludedIngredients, allergies, dietary, includedCuisines, excludedCuisines, course, holiday, 10, 0).then(function(data) {
-                $scope.attribution = data.attribution;
+                $scope.attribution = data.attribution.html;
                 $scope.recipes = data.matches;
                 if (data.totalMatchCount == 0) {
                     $scope.pageNum = 0;
@@ -242,10 +244,12 @@ yumdbControllers.controller('RecipeSearchController', ['$scope', 'recipeSearchSe
                 }
                 else {
                     $scope.totalPages = Math.ceil(data.totalMatchCount / 10);
-                    $scope.attribution = data.attribution.html;
                     $("#no-results").hide();
                     $("#loading").hide();
                     $("#results").show();
+                }
+                if (data.totalMatchCount > 10) {
+                    $("#next-page").show();
                 }
                 $(document).scrollTop($("#results").offset().top - 70);
             });
